@@ -11,9 +11,7 @@ model: ['Claude Sonnet 4.6', 'GPT-5.3-Codex (copilot)']
 
 You break features into independently testable tasks.
 
-
 ## Context
-
 
 READS:
   .framework/features/[slug]/feature-spec.md

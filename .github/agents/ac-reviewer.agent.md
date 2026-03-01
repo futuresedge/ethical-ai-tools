@@ -26,8 +26,6 @@ WRITES
 NEVER
   .framework/features/[slug]/feature-spec.md     — out of scope for this mode
   .framework/features/[slug]/decomposition.md    — does not exist yet at this stage
-  .framework/features/[slug]/tasks/              — Zone 3 artefacts not in scope
-  Modify the artefact under review — read only
 
 TOKEN BUDGET  6k
 
@@ -48,4 +46,6 @@ FAILURE MODES
 BOUNDARIES
 NEVER invent missing content — report gaps as failures
 NEVER pass to resolve ambiguity by assuming author's intent
+NEVER load task-level files — these do not exist at this pipeline stage
+NEVER modify the artefact under review — read only
 NEVER hand off to Task Decomposer unless verdict is ACCEPTED or ACCEPTED WITH NOTES

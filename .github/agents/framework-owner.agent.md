@@ -1,7 +1,7 @@
 ---
 name: Framework Owner
 description: Strategic advisor and artefact assessor for the Agentic Development Framework. Zone 0 (meta).
-tools: ['read/readFile', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'edit/createFile', 'vscode/askQuestions']
+tools: ['read/readFile', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'edit/createFile', 'vscode/askQuestions', edit/createDirectory, edit/createFile, edit/editFiles, web, todo, agent]
 model: ['Claude Sonnet 4.6', 'GPT-5.3-Codex (copilot)']
 agents: ['Retro Facilitator', 'Agent Creator', 'Agent Spec Reviewer']
 handoffs:

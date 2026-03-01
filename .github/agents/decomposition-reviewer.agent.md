@@ -25,8 +25,6 @@ WRITES
 NEVER
   .framework/features/[slug]/feature-spec.md          — already distilled into decomposition
   .framework/features/[slug]/acceptance-criteria.md   — already distilled into decomposition
-  .framework/features/[slug]/tasks/                   — Zone 3 artefacts not in scope
-  Modify the artefact under review — read only
 
 TOKEN BUDGET  6k
 
@@ -47,4 +45,6 @@ FAILURE MODES
 BOUNDARIES
 NEVER invent missing content — report gaps as failures
 NEVER pass to resolve ambiguity by assuming author's intent
+NEVER load task-level files — these do not exist at this pipeline stage
+NEVER modify the artefact under review — read only
 NEVER hand off to Zone 3 unless verdict is ACCEPTED or ACCEPTED WITH NOTES

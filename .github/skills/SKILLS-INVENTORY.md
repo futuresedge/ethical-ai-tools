@@ -2,7 +2,7 @@
 > Master reference for all framework skills.
 > Skills load on demand — never at startup.
 > Each skill has a SKILL.md (thin) and a references/ folder (substantive).
-> Last updated: February 2026
+> Last updated: March 2026
 
 ---
 
@@ -32,6 +32,11 @@ ON DEMAND: reference files load only when the skill explicitly calls for them
 | `framework-strategy` | Zone 0 (meta) | Framework Owner agent | HIGH |
 | `retro-facilitation` | Zone 0 (meta) | Retro Facilitator agent | HIGH |
 | `artefact-review` | Zones 2–3 | Feature Spec Reviewer, AC Reviewer, Decomposition Reviewer, Task Spec Reviewer | HIGH |
+| `nexus-ontology` | cross-zone (Nexus build) | Nexus Server Builder, Nexus Tool Reviewer (post-adoption) | HIGH |
+| `nexus-tool-grammar` | cross-zone (Nexus build) | Nexus Server Builder, Nexus Tool Reviewer (post-adoption) | HIGH |
+| `nexus-server` | cross-zone (Nexus build) | Nexus Server Builder | HIGH |
+| `nexus-qa-rules` | cross-zone (Nexus build) | QA Reviewer (Agent 2.2), Nexus Server Builder | MEDIUM |
+| `nexus-context-card` | cross-zone (Nexus build) | Context Agent (Agent 2.3), Nexus Server Builder | MEDIUM |
 
 ---
 
@@ -111,3 +116,38 @@ artefact-review
   Covers: ACCEPTED/ACCEPTED WITH NOTES/RETURNED criteria, output template, revision history
   convention, how to run the checklist without partial runs, and boundary rules (never invent,
   never pass ambiguity). Load for any artefact review operation in Zones 2–3.
+
+nexus-ontology
+  Carries the 6-dimension ONE Ontology design rubric (Capability, Accountability, Quality,
+  Temporality, Context, Artifact) as a binary checklist for the Nexus experiment. Applied before
+  implementing any tool, schema table, or agent spec section. Includes experiment coverage map
+  (which dimensions are fully proved vs. intentionally deferred) and the pass criterion for the
+  adoption decision. Load for any tool or schema design decision during the Nexus build.
+
+nexus-tool-grammar
+  Authoritative naming grammar for Nexus MCP server tools. Carries the closed verb vocabulary
+  (8 verbs with semantics and side effect rules), the open subject vocabulary (document types,
+  write modes, valid verb combinations), the Tool Matrix, task slug formation rules, and the
+  three scoping levels (universal, role-scoped, task-scoped). Load before naming or designing
+  any new Nexus tool.
+
+nexus-server
+  Implementation conventions for the Nexus MCP server. Covers MCP SDK STDIO transport setup,
+  VS Code registration via mcp.json, better-sqlite3 synchronous patterns and WAL mode, the
+  registerTaskTools() dynamic dispatch pattern, compound tool implementation (atomic write +
+  state transition + stream event + audit), and agent spec template generation. Load when
+  writing or extending nexus/server.ts.
+
+nexus-qa-rules
+  Governs proof validation for the Nexus QA Reviewer agent (Agent 2.2, future phase). Covers
+  the proof validation rubric (command specificity, exit codes, required elements), the qa_rules
+  database schema (structured rows per task type), and QA Reviewer state transition authority
+  (PROOFSUBMITTED → QAAPPROVED or QAFAILED only). Load when building or invoking the QA
+  Reviewer or when adding new validation rules from a retrospective.
+
+nexus-context-card
+  Governs context card generation for the Context Agent (Agent 2.3, future phase). Covers the
+  context card format and 800-token budget, knowledge base schema (sprint_learnings, patterns),
+  query patterns for filtering by task_type and domain, compression discipline (no full document
+  dumps), and the progression from the Phase 1–5 minimum (raw task row) to the target generated
+  briefing. Load when building or upgrading get_context_card.

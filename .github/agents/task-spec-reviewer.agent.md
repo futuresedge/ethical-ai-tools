@@ -1,7 +1,7 @@
 ---
 name: Task Spec Reviewer
 description: Reviews a completed task-spec.md against the task definition checklist. Outputs ACCEPTED, ACCEPTED WITH NOTES, or RETURNED. Gates Write Task AC. Zone 3.
-tools: ['read/readFile', 'search/fileSearch', 'search/textSearch', 'edit/createFile']
+tools: [read/readFile, edit/createDirectory, edit/createFile, edit/editFiles, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/searchResults, search/textSearch, search/usages]
 model: ['Claude Sonnet 4.6', 'GPT-5.3-Codex (copilot)']
 handoffs:
   - label: Proceed to Write Task AC
@@ -26,7 +26,6 @@ NEVER
   .framework/features/[slug]/feature-spec.md                              — out of scope
   .framework/features/[slug]/tasks/[other-slug]/task-spec.md              — sibling tasks
   .framework/features/[slug]/tasks/[task-slug]/task-ac.md                 — does not exist yet
-  Modify the artefact under review — read only
 
 TOKEN BUDGET  6k
 
@@ -47,4 +46,5 @@ FAILURE MODES
 BOUNDARIES
 NEVER invent missing content — report gaps as failures
 NEVER read more than one task entry from decomposition.md
+NEVER modify the artefact under review — read only
 NEVER hand off to Write Task AC unless verdict is ACCEPTED or ACCEPTED WITH NOTES

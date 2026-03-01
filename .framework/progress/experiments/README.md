@@ -12,7 +12,7 @@
 |---|---|---|---|
 | Experiment 1 | Build 3 Zone 2 agents (Feature Definer, AC Writer, Task Decomposer) and run navbar feature end-to-end | COMPLETE | no probe file — logged in ExperimentsSummary.md |
 | Experiment 2 | Reviewer Agent — gate model, three modes | COMPLETE | probe-experiment-2-reviewer-agent-20260301.md |
-| Experiment 3 | Task Spec Writer — Zone 3, first task spec artefact | IN PROGRESS | probe pending |
+| Experiment 3 | Task Spec Writer — Zone 3, first task spec artefact | COMPLETE | probe-experiment-3-task-spec-writer-20260301.md |
 | Experiment 4 | Test Writer — evidence-first, tests before implementation | NOT STARTED | — |
 
 ## Experiment 2 — Reviewer Agent (your idea, highest priority)

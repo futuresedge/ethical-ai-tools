@@ -72,3 +72,24 @@ FRAMEWORK NOTES:
 - The direct-READS pattern for rubric files (vs loading via skill) is correct for always-on
   content. The SKILL pointer handles procedure/format; READS handles the rubric. This is
   a valid and efficient split.
+
+---
+
+## Fix Record
+DATE:  2026-03-01
+ACTION: Notes applied by Framework Owner
+
+SHARED NOTE 1 fix applied to all four agents:
+  Removed prose instruction from NEVER blocks.
+  Added to BOUNDARIES: "NEVER modify the artefact under review — read only"
+  FILES: feature-spec-reviewer.agent.md, ac-reviewer.agent.md,
+         decomposition-reviewer.agent.md, task-spec-reviewer.agent.md
+
+SHARED NOTE 2 fix applied to three agents:
+  Removed directory path ".framework/features/[slug]/tasks/" from NEVER blocks.
+  Added to BOUNDARIES: "NEVER load task-level files — these do not exist at this pipeline stage"
+  FILES: feature-spec-reviewer.agent.md, ac-reviewer.agent.md, decomposition-reviewer.agent.md
+  (task-spec-reviewer was already correct — no change needed)
+
+POST-FIX VERDICT: ACCEPTED (all four reviewer agents)
+POST-FIX VERDICT: ACCEPTED (task-spec-writer — unchanged)

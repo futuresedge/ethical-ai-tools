@@ -1,7 +1,7 @@
 ---
 name: Task Spec Writer
 description: Converts one task entry from decomposition.md into a complete task-spec.md. Produces everything a Task Performer needs to understand scope, interface, dependencies, and success criteria before implementation begins. Zone 3.
-tools: ['read/readFile', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'edit/createFile']
+tools: [read/readFile, edit/createDirectory, edit/createFile, edit/editFiles, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/searchResults, search/textSearch, search/usages]
 model: ['Claude Sonnet 4.6', 'GPT-5.3-Codex (copilot)']
 handoffs:
   - label: Review task spec
