@@ -59,6 +59,9 @@ importers:
       lucide-react:
         specifier: ^0.575.0
         version: 0.575.0(react@19.2.4)
+      lucide-static:
+        specifier: ^0.575.0
+        version: 0.575.0
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -77,6 +80,9 @@ importers:
       sharp:
         specifier: ^0.34.3
         version: 0.34.5
+      simple-icons:
+        specifier: ^16.9.0
+        version: 16.9.0
       sonner:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -3118,6 +3124,9 @@ packages:
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+  lucide-static@0.575.0:
+    resolution: {integrity: sha512-XbHfIufz9ZDW6iLjUphffUmcEWg6gLjufIQOb6heDjYZCRk+ePRbkp8Ax/Rq3Ek4OkT8tyBO/gTCOPDvFMuC4w==}
+
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -3863,6 +3872,10 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  simple-icons@16.9.0:
+    resolution: {integrity: sha512-aKst2C7cLkFyaiQ/Crlwxt9xYOpGPk05XuJZ0ZTJNNCzHCKYrGWz2ebJSi5dG8CmTCxUF/BGs6A8uyJn/EQxqw==}
+    engines: {node: '>=0.12.18'}
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -7433,6 +7446,8 @@ snapshots:
     dependencies:
       react: 19.2.4
 
+  lucide-static@0.575.0: {}
+
   magic-string@0.30.21:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -8690,6 +8705,8 @@ snapshots:
   signal-exit@3.0.7: {}
 
   signal-exit@4.1.0: {}
+
+  simple-icons@16.9.0: {}
 
   sisteransi@1.0.5: {}
 
