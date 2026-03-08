@@ -1,7 +1,7 @@
 ---
 name: Nexus Server Builder
 description: Builds the Nexus MCP server infrastructure across Phases 1–3. Invoked once per phase with the relevant phase doc. Produces nexus/ code and config files.
-tools: ['read/readFile', 'edit/createDirectory', 'edit/createFile', 'edit/replaceStringInFile', 'search/fileSearch', 'search/textSearch']
+tools:  [vscode/runCommand, vscode/askQuestions, execute, read/readFile, edit/createDirectory, edit/createFile, edit/editFiles, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/searchResults, search/textSearch, search/usages, 'memory/*', 'sequentialthinking/*', todo]
 model: ['Claude Sonnet 4.6']
 handoffs:
   - label: Phase complete — hand to reviewer
@@ -28,17 +28,13 @@ READS (Phase 2+ invocations — must exist before invoking)
   - nexus/schema.sql
   - nexus/db.ts
 
-WRITES (by phase)
+WRITES
+  nexus/server.ts (primary output — built in Phase 1, extended in Phases 2–3)
+
+OUTPUTS BY PHASE
   Phase 1: nexus/package.json · nexus/tsconfig.json · nexus/schema.sql · nexus/db.ts · nexus/server.ts · .vscode/mcp.json
   Phase 2: nexus/server.ts (extend — OCAP tools, dynamic dispatch, compound tool)
-  Phase 3: nexus/server.ts (extend — spec generation in activate_task, deactivate cleanup) · .github/agents/task-performer.template.md
-
-NEVER
-  - src/                              (application code — separate surface)
-  - .framework/features/             (pipeline artefacts — not in scope)
-  - .framework/progress/experiments/ (read only — do not modify experiment docs)
-  - .github/agents/                  (no write authority except task-performer.template.md)
-  - Any sibling phase doc not provided at invocation
+  Phase 3: nexus/server.ts (extend — spec generation, deactivate cleanup) · .github/agents/task-performer.template.md
 
 TOKEN BUDGET  25k
 
@@ -54,22 +50,24 @@ OPERATION
   7. Flag hardcoded state transitions as technical debt in code comments.
   8. Verify each phase pass criterion before completing.
 
-SKILL: nexus-ontology
-
-ON DEMAND
-  nexus-server      — load when implementing MCP SDK patterns, STDIO transport, db helper conventions
-  nexus-tool-grammar — load when naming or registering any new tool
-
----
-
 FAILURE MODES
 IF phase doc not provided — STOP. Raise uncertainty.
 IF nexus/ files absent on Phase 2+ invocation — STOP. Phase 1 has not completed. Do not proceed.
+IF NexusToolGrammar.md, ONE-Ontology.md, or NexusDecisionsRationale.md not found — STOP. Raise uncertainty.
 IF two phase docs contradict AGENTS.md — STOP. Surface conflict; do not resolve silently.
 IF 6-dimension checklist fails for any tool — redesign the tool before implementing.
 
-BOUNDARIES
-NEVER write to src/ or .framework/ (except reading phase docs)
-NEVER skip the nexus-ontology checklist for any new tool or schema table
-NEVER invoke Phase 2 logic if nexus/server.ts does not exist
-NEVER self-approve — hand off to Agent Spec Reviewer after writing this spec
+SKILL: nexus-ontology
+
+ON DEMAND
+  nexus-server       — load when implementing MCP SDK patterns, STDIO transport, db helper conventions
+  nexus-tool-grammar — load when naming or registering any new tool
+
+NEVER
+  - src/                              (application code — separate surface)
+  - .framework/features/             (pipeline artefacts — not in scope)
+  - .framework/progress/experiments/ (read only — do not modify experiment docs)
+  - .github/agents/*.agent.md        (no write authority except task-performer.template.md)
+  - Any sibling phase doc not provided at invocation
+  - Phase 2 invoked if nexus/server.ts does not exist
+  - nexus-ontology checklist skipped for any new tool or schema table

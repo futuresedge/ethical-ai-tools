@@ -6,6 +6,18 @@
         "shadcn@latest",
         "mcp"
       ]
+    },
+    "nexus": {
+      "type": "stdio",
+      "command": "/Users/peteargent/.nvm/versions/node/v22.21.1/bin/node",
+      "args": [
+        "/Users/peteargent/apps/000_edge_tools/ethical-edge-tools/nexus/node_modules/tsx/dist/cli.mjs",
+        "nexus/server.ts"
+      ]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
     }
   }
 }

@@ -548,6 +548,29 @@ BUDGET: ~25k tokens (highest in Zone N — justified by multi-phase, multi-sourc
 SKILL: nexus-server, nexus-tool-grammar, nexus-ontology
 ```
 
+### [NEXUS SERVER REVIEWER] — post each phase build
+```
+TYPE: EXECUTOR
+READS:
+  - nexus/server.ts                                                    (primary subject of review)
+  - nexus/schema.sql                                                   (table declarations — Artifact dimension)
+  - nexus/db.ts                                                        (WAL mode, singleton pattern)
+  - .framework/progress/experiments/nexus/NexusToolGrammar.md         (naming compliance)
+  - .framework/progress/experiments/nexus/ONE-Ontology.md             (6-dimension checklist)
+  - [phase spec provided at invocation]                                (governs what was required for this phase)
+WRITES:
+  - .framework/progress/experiments/nexus/nexus-server-review-phase-{N}-{date}.md
+NEVER:
+  - nexus/webhook.ts             (webhook server — out of scope for server reviews)
+  - .framework/features/         (pipeline artefacts — not in scope)
+  - .github/agents/              (no spec write authority)
+  - src/                         (application code — out of scope)
+  - Any nexus/ source file       (read only — reviewer does not modify implementation)
+CACHE: YES — ontology and grammar references are stable; only code under review varies
+BUDGET: ~12k tokens
+SKILL: nexus-ontology
+```
+
 ### [NEXUS WEBHOOK BUILDER] — Phase 4
 ```
 TYPE: EXECUTOR

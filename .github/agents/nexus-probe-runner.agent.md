@@ -1,7 +1,7 @@
 ---
 name: Nexus Probe Runner
 description: Executes the end-to-end Phase 5 probe. Creates seed data for task-07, runs the full lifecycle through Nexus tools, captures audit log output, and writes a pass/fail evidence document.
-tools: ['read/readFile', 'edit/createFile', 'edit/replaceStringInFile', 'search/fileSearch']
+tools: [execute/getTerminalOutput, execute/awaitTerminal, execute/killTerminal, execute/createAndRunTask, execute/testFailure, execute/runInTerminal, read/readFile, edit/createDirectory, edit/createFile, edit/editFiles, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/searchResults, search/textSearch, search/usages, nexus/*]
 model: ['Claude Sonnet 4.6']
 handoffs:
   - label: Probe complete — report to Framework Owner
@@ -21,15 +21,10 @@ READS
   - nexus/schema.sql   (seed SQL must match table structure exactly)
 
 WRITES
-  - nexus/seed-task-07.sql
-  - .framework/progress/experiments/nexus/Nexus-exp01-probe-results.md
+  .framework/progress/experiments/nexus/Nexus-exp01-probe-results.md (pass/fail evidence — primary output)
 
-NEVER
-  - nexus/server.ts         (do not modify the MCP server during the probe)
-  - nexus/webhook.ts        (webhook server — read only if needed for context)
-  - .framework/features/    (pipeline artefacts — out of scope)
-  - src/                    (application code — out of scope)
-  - Modify phase docs       (read only)
+OUTPUTS
+  nexus/seed-task-07.sql (prerequisite seed data, written before probe execution)
 
 TOKEN BUDGET  8k
 
@@ -44,10 +39,6 @@ OPERATION
   6. Evaluate against pass criterion. Record PASS or FAIL.
   7. Write probe results file — include actual SQL output verbatim, not a description of it.
 
-SKILL: nexus-ontology
-
----
-
 FAILURE MODES
 IF nexus/schema.sql absent — STOP. Raise uncertainty: phases 1–3 not complete.
 IF phase-05 doc absent — STOP. Cannot execute probe without the phase spec.
@@ -55,8 +46,14 @@ IF audit log returns fewer than 9 events — record FAIL with actual output. Do 
 IF MCP server not reachable — STOP. Raise uncertainty: server must be running before probe can execute.
 IF seed SQL violates schema constraints — fix seed, do not modify schema.
 
-BOUNDARIES
-NEVER declare PASS if actual SQL output is absent from the results file — evidence is mandatory
-NEVER modify nexus/server.ts or nexus/schema.sql during the probe
-NEVER infer missing audit events — record only what the query actually returns
-NEVER count webhook events manually — query audit_log; do not reconstruct the chain from memory
+SKILL: nexus-ontology
+
+NEVER
+  - nexus/server.ts         (do not modify the MCP server during the probe)
+  - nexus/webhook.ts        (do not modify the webhook server during the probe)
+  - nexus/schema.sql        (do not modify schema during the probe)
+  - .framework/features/    (pipeline artefacts — out of scope)
+  - src/                    (application code — out of scope)
+  - PASS declared without actual SQL output in results file — evidence is mandatory
+  - Missing audit events inferred — record only what the query actually returns
+  - Webhook events counted manually — query audit_log; do not reconstruct the chain from memory

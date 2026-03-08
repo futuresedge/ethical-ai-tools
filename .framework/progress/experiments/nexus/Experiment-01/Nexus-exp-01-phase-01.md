@@ -7,9 +7,9 @@
 **1.1 Scaffold the Nexus server**
 ```bash
 mkdir nexus && cd nexus
-npm init -y
-npm install @modelcontextprotocol/sdk better-sqlite3
-npm install -D typescript @types/node tsx
+pnpm init -y
+pnpm install @modelcontextprotocol/sdk better-sqlite3
+pnpm install -D typescript @types/node tsx
 ```
 Use STDIO transport — this is what VS Code expects for local servers.
 

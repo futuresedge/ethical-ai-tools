@@ -1,7 +1,7 @@
 ---
 name: Nexus Webhook Builder
 description: Builds the Fastify webhook server (Phase 4) that receives GitHub events and writes to the shared Nexus audit_log and stream_events tables. Invoked after Phase 3 is complete.
-tools: ['read/readFile', 'edit/createDirectory', 'edit/createFile', 'edit/replaceStringInFile', 'search/fileSearch']
+tools: [execute/getTerminalOutput, execute/awaitTerminal, execute/killTerminal, execute/createAndRunTask, execute/testFailure, execute/runInTerminal, read/readFile, edit/createDirectory, edit/createFile, edit/editFiles, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/searchResults, search/textSearch, search/usages, web, 'memory/*', 'sequentialthinking/*', todo]
 model: ['Claude Sonnet 4.6']
 handoffs:
   - label: Phase 4 complete — hand to reviewer
@@ -21,15 +21,10 @@ READS
   - AGENTS.md          (workspace structure — nexus/ at root, not src/)
 
 WRITES
-  - nexus/webhook.ts        (Fastify HTTP server on port 3001)
-  - nexus/webhook-parser.ts (branch→task_id extraction, plain-English event formatter)
+  nexus/webhook.ts (Fastify HTTP server on port 3001 — primary output)
 
-NEVER
-  - nexus/server.ts               (MCP server — separate process, do not modify)
-  - nexus/schema.sql              (read only — schema is owned by Phase 1)
-  - src/                          (application code — out of scope)
-  - .framework/progress/experiments/ (read only — do not modify phase docs)
-  - .github/agents/               (no agent spec authority)
+OUTPUTS
+  nexus/webhook-parser.ts (branch→task_id extraction, plain-English event formatter)
 
 TOKEN BUDGET  10k
 
@@ -46,17 +41,19 @@ OPERATION
   8. Supported event types: push, pull_request, pull_request_review.
   9. Verify pass criterion: real push event lands in audit_log with actor = 'webhook:github'.
 
-SKILL: nexus-server
-
----
-
 FAILURE MODES
 IF nexus/schema.sql absent — STOP. Raise uncertainty: Phase 1–3 not yet complete.
 IF phase-04 doc absent — STOP. Cannot implement without the phase spec.
 IF db.ts conventions conflict with webhook requirements — STOP. Surface conflict; do not resolve silently.
 
-BOUNDARIES
-NEVER modify nexus/server.ts — webhook runs as a separate process
-NEVER use port 3001 for the MCP server — MCP uses STDIO transport only
-NEVER invent a branch naming convention — follow the format in phase-04 doc exactly
-NEVER write ngrok config — setup instructions are in phase-04 doc; surface them, do not invent alternatives
+SKILL: nexus-server
+
+NEVER
+  - nexus/server.ts                  (MCP server — separate process, do not modify)
+  - nexus/schema.sql                 (read only — schema is owned by Phase 1)
+  - src/                             (application code — out of scope)
+  - .framework/progress/experiments/ (read only — do not modify phase docs)
+  - .github/agents/                  (no agent spec authority)
+  - Port 3001 for the MCP server — MCP uses STDIO transport only
+  - Branch naming convention invented — follow the format in phase-04 doc exactly
+  - ngrok config written — setup instructions are in phase-04 doc; do not invent alternatives

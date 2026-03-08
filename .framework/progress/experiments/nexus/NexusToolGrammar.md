@@ -149,12 +149,14 @@ The verbs are a **closed set**. New verbs are never added without a framework-le
 ### `get_`
 **Semantics:** Fetch metadata, configuration, pre-generated artefacts, or system state. Distinct from `read_` in that it operates on system-level resources, not task documents.
 
-**Side effects:** None. Read-only.
+**Side effects:** Writes one `audit_log` entry (tool_name, task_id, actor, timestamp). No state change. No stream event.
 
 **Rules:**
 - Never operates on a task document (that is `read_`)
 - Used for: context cards (pre-generated, not task documents), capability declarations, current lifecycle state, tool registry metadata
 - Returns structured data, not document content
+- Audit entry records that the agent fetched context — this provides a complete chain of custody including context reads, not just writes
+- Unlike `read_`, `get_` operates on system resources that may change over time (e.g. context cards are regenerated) — the audit record captures which version an agent was working from
 
 **Examples:** `get_context_card`, `get_my_capabilities`, `get_current_state`
 
